@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
 
@@ -16,7 +17,7 @@ export const WishlistProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
-      const res = await axios.get("http://localhost:5000/api/wishlist", {
+      const res = await axios.get(`${API_BASE_URL}/api/wishlist`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWishlist(res.data.products || []);
@@ -41,7 +42,7 @@ export const WishlistProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/wishlist/toggle",
+        `${API_BASE_URL}/api/wishlist/toggle`,
         { productId: product._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

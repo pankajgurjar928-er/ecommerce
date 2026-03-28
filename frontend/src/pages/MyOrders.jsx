@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useToast } from "../context/ToastContext";
 import { useAuth } from "../context/AuthContext";
 import ImageWithFallback from "../components/ImageWithFallback";
@@ -17,7 +18,7 @@ const MyOrders = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return navigate("/login");
-      const res = await axios.get("http://localhost:5000/api/orders/my", {
+      const res = await axios.get(`${API_BASE_URL}/api/orders/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -38,7 +39,7 @@ const MyOrders = () => {
   const handleAction = async (orderId, action) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(`http://localhost:5000/api/orders/${orderId}/${action}`, {}, {
+      await axios.patch(`${API_BASE_URL}/api/orders/${orderId}/${action}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success(action === "complete" ? "Order marked as completed!" : "Order cancelled successfully.");

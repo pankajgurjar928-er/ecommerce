@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useToast } from "../context/ToastContext";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
@@ -36,7 +37,7 @@ const Checkout = () => {
       }));
 
       await axios.post(
-        "http://localhost:5000/api/orders",
+        `${API_BASE_URL}/api/orders`,
         {
           products: productsPayload,
           totalAmount: finalTotal,

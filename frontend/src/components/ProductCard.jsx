@@ -7,6 +7,7 @@ import { useModal } from '../context/ModalContext';
 import { useToast } from '../context/ToastContext';
 import ImageWithFallback from './ImageWithFallback';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const ProductCard = ({ item, onEdit }) => {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ const ProductCard = ({ item, onEdit }) => {
       onConfirm: async () => {
         const token = localStorage.getItem("token");
         try {
-          await axios.delete(`http://localhost:5000/api/products/${item._id}`, {
+          await axios.delete(`${API_BASE_URL}/api/products/${item._id}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           toast.success("Asset decommissioned successfully");

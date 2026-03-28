@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../../config";
 import { useToast } from "../../context/ToastContext";
 import { useAuth } from "../../context/AuthContext";
 import { useModal } from "../../context/ModalContext";
@@ -28,7 +29,7 @@ const ManageProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get(`${API_BASE_URL}/api/products`);
       setProducts(res.data);
     } catch (err) {
       console.log(err);
@@ -53,10 +54,10 @@ const ManageProducts = () => {
     const token = localStorage.getItem("token");
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/products/${editingId}`, form, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.put(`${API_BASE_URL}/api/products/${editingId}`, form, { headers: { Authorization: `Bearer ${token}` } });
         toast.success("Product updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/products", form, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post(`${API_BASE_URL}/api/products`, form, { headers: { Authorization: `Bearer ${token}` } });
         toast.success("Product created successfully");
       }
       setShowModal(false);
@@ -76,7 +77,7 @@ const ManageProducts = () => {
       onConfirm: async () => {
         const token = localStorage.getItem("token");
         try {
-          await axios.delete(`http://localhost:5000/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+          await axios.delete(`${API_BASE_URL}/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } });
           fetchProducts();
           toast.success("Product deleted successfully");
         } catch (err) {

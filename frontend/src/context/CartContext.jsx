@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
 
@@ -18,7 +19,7 @@ export const CartProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token || token === "undefined" || token === "null") return;
       
-      const res = await axios.get("http://localhost:5000/api/cart", {
+      const res = await axios.get(`${API_BASE_URL}/api/cart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCart(res.data?.items || []);
@@ -48,7 +49,7 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     try {
       await axios.post(
-        "http://localhost:5000/api/cart",
+        `${API_BASE_URL}/api/cart`,
         { productId: product._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -67,7 +68,7 @@ export const CartProvider = ({ children }) => {
   const removeItem = async (productId) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+      const res = await axios.delete(`${API_BASE_URL}/api/cart/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCart(res.data?.items || []);
@@ -81,7 +82,7 @@ export const CartProvider = ({ children }) => {
     if (newQuantity < 1) return removeItem(productId);
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.put("http://localhost:5000/api/cart", 
+      const res = await axios.put(`${API_BASE_URL}/api/cart`, 
         { productId, quantity: newQuantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );

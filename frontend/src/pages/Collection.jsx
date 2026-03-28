@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
@@ -46,7 +47,7 @@ const Collection = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get(`${API_BASE_URL}/api/products`);
         setProductsData(res.data);
       } catch (err) {
         console.log(err);

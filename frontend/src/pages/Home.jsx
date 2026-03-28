@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
@@ -28,7 +29,7 @@ const Home = () => {
   // 🔥 FETCH PRODUCTS
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get(`${API_BASE_URL}/api/products`);
       setProductsData(res.data);
     } catch (err) {
       console.log(err);
@@ -49,7 +50,7 @@ const Home = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      await axios.put(`http://localhost:5000/api/products/${editingId}`, form, { 
+      await axios.put(`${API_BASE_URL}/api/products/${editingId}`, form, { 
         headers: { Authorization: `Bearer ${token}` } 
       });
       toast.success("Product updated successfully");
