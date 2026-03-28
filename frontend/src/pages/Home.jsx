@@ -132,7 +132,7 @@ const Home = () => {
                 </div>
                 
                 <div className="relative mb-10">
-                  <h1 className={`text-6xl sm:text-7xl lg:text-[7vw] font-serif leading-[0.85] tracking-tightest ${index === currentSlide ? 'mask-reveal' : 'opacity-0'}`}>
+                  <h1 className={`text-6xl sm:text-7xl lg:text-[7vw] font-serif leading-[0.95] tracking-tightest ${index === currentSlide ? 'mask-reveal' : 'opacity-0'}`}>
                     {slide.title} <br />
                     <span className="italic font-light text-slate-300 dark:text-slate-700">{slide.highlight}</span>
                   </h1>
